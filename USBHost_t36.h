@@ -282,7 +282,12 @@ public:
     uint32_t getRawDescriptorLength() const { return descriptor_length; }
 
     // ✅ Manual driver registration support
-    void registerDriver(USBDriver *driver) { add_driver(driver); } 
+    void registerDriver(USBDriver *driver) {
+        extern USBDriver *available_drivers;
+        driver->next = available_drivers;
+        available_drivers = driver;
+    }
+
 protected:
     static Pipe_t * new_Pipe(Device_t *dev, uint32_t type, uint32_t endpoint,
                              uint32_t direction, uint32_t maxlen, uint32_t interval = 0);
@@ -506,7 +511,6 @@ protected:
     friend class USBHost;
 };
 
-extern void add_driver(USBDriver *driver);
 
 // Device drivers may create these timer objects to schedule a timer call
 class USBDriverTimer {
