@@ -485,4 +485,10 @@ void USBHost::disconnect_Device(Device_t *dev)
 	}
 }
 
+extern USBDriver *available_drivers;
 
+void USBDriver::addDriver(USBDriver *driver) {
+    driver->device = nullptr;
+    driver->next = available_drivers;
+    available_drivers = driver;
+}

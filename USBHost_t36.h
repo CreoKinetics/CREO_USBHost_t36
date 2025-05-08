@@ -26,12 +26,14 @@
 
 #include <stdint.h>
 #include <FS.h>
+#include "usb_driver.h"
 
 #if !defined(__MK66FX1M0__) && !defined(__IMXRT1052__) && !defined(__IMXRT1062__)
 #error "USBHost_t36 only works with Teensy 3.6 or Teensy 4.x.  Please select it in Tools > Boards"
 #endif
 #include "utility/imxrt_usbhs.h"
 #include "utility/msc.h"
+
 
 // Dear inquisitive reader, USB is a complex protocol defined with
 // very specific terminology.  To have any chance of understand this
@@ -422,6 +424,8 @@ protected:
 // All USB device drivers inherit from this base class.
 class USBDriver : public USBHost {
 public:
+    static void addDriver(USBDriver *driver);
+    
     operator bool() {
         Device_t *dev = *(Device_t * volatile *)&device;
         return dev != nullptr;
