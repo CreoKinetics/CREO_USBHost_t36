@@ -26,7 +26,6 @@
 
 #include <stdint.h>
 #include <FS.h>
-#include "usb_driver.h"
 
 #if !defined(__MK66FX1M0__) && !defined(__IMXRT1052__) && !defined(__IMXRT1062__)
 #error "USBHost_t36 only works with Teensy 3.6 or Teensy 4.x.  Please select it in Tools > Boards"
