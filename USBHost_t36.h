@@ -297,6 +297,9 @@ public: // Maybe others may want/need to contribute memory example HID devices m
     static void contribute_Transfers(Transfer_t *transfers, uint32_t num);
     static void contribute_String_Buffers(strbuf_t *strbuf, uint32_t num);
 private:
+    // === Added by CreoKinetics for USB descriptor access ===
+    static uint8_t descriptor_buffer[512];
+    static uint32_t descriptor_length;
     static void isr();
     static void convertStringDescriptorToASCIIString(uint8_t string_index, Device_t *dev, const Transfer_t *transfer);
     static void claim_drivers(Device_t *dev);

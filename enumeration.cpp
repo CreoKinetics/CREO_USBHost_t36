@@ -61,6 +61,9 @@ static void pipe_set_addr(Pipe_t *pipe, uint32_t addr);
 #define print   USBHost::print_
 #define println USBHost::println_
 
+uint8_t USBHost::descriptor_buffer[512] = {0};
+uint32_t USBHost::descriptor_length = 0;
+
 // The main user function to cause internal state to update.  Since we do
 // almost everything with DMA and interrupts, the only work to do here is
 // call all the active driver Task() functions.
