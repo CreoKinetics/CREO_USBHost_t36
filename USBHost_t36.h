@@ -270,15 +270,17 @@ struct Transfer_struct {
 /************************************************/
 /*  Main USB EHCI Controller                    */
 /************************************************/
-
 class USBHost {
 public:
     static void begin();
     static void Task();
     static void countFree(uint32_t &devices, uint32_t &pipes, uint32_t &trans, uint32_t &strs);
+
     // === Added by CreoKinetics for descriptor access ===
     const uint8_t* getRawDescriptorBuffer() const { return descriptor_buffer; }
     uint32_t getRawDescriptorLength() const { return descriptor_length; }
+
+    // ✅ Manual driver registration support
     void registerDriver(USBDriver *driver) { USBDriver::addDriver(driver); }
 protected:
     static Pipe_t * new_Pipe(Device_t *dev, uint32_t type, uint32_t endpoint,
