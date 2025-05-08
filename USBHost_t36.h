@@ -276,6 +276,9 @@ public:
     static void begin();
     static void Task();
     static void countFree(uint32_t &devices, uint32_t &pipes, uint32_t &trans, uint32_t &strs);
+    // === Added by CreoKinetics for descriptor access ===
+    const uint8_t* getRawDescriptorBuffer() const { return descriptor_buffer; }
+    uint32_t getRawDescriptorLength() const { return descriptor_length; }
 protected:
     static Pipe_t * new_Pipe(Device_t *dev, uint32_t type, uint32_t endpoint,
                              uint32_t direction, uint32_t maxlen, uint32_t interval = 0);
