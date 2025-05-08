@@ -275,7 +275,14 @@ void USBHost::enumeration(const Transfer_t *transfer)
 			print_config_descriptor(enumbuf, sizeof(enumbuf));
 			dev->bmAttributes = enumbuf[7];
 			dev->bMaxPower = enumbuf[8];
-			// TODO: actually do something with interface descriptor?
+
+			// 🧩 Patch: Copy config descriptor for later scanning
+			if (transfer && transfer->buffer && transfer->length > 0 && transfer->length < sizeof(descriptor_buffer)) {
+				memcpy(descriptor_buffer, transfer->buffer, transfer->length);
+				descriptor_length = transfer->length;
+				Serial.printf("📦 Captured %lu bytes of USB config descriptor for scanning\n", transfer->length);
+			}
+
 			mk_setup(enumsetup, 0, 9, enumbuf[5], 0, 0); // 9=SET_CONFIGURATION
 			queue_Control_Transfer(dev, &enumsetup, NULL, NULL);
 			dev->enum_state = 14;
