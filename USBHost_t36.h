@@ -70,7 +70,6 @@
 #define USBHDBGSerial   Serial
 #endif
 
-extern void add_driver(USBDriver *driver);
 
 /************************************************/
 /*  Data Types                                  */
@@ -506,6 +505,8 @@ protected:
     Device_t *device;
     friend class USBHost;
 };
+
+extern void add_driver(USBDriver *driver);
 
 // Device drivers may create these timer objects to schedule a timer call
 class USBDriverTimer {
