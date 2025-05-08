@@ -282,11 +282,7 @@ public:
     uint32_t getRawDescriptorLength() const { return descriptor_length; }
 
     // ✅ Manual driver registration support
-    void registerDriver(USBDriver *driver) {
-        extern USBDriver *available_drivers;
-        driver->next = available_drivers;
-        available_drivers = driver;
-    }
+    void registerDriver(USBDriver *driver);
 
 protected:
     static Pipe_t * new_Pipe(Device_t *dev, uint32_t type, uint32_t endpoint,

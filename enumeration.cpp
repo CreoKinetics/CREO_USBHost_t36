@@ -64,6 +64,13 @@ static void pipe_set_addr(Pipe_t *pipe, uint32_t addr);
 uint8_t USBHost::descriptor_buffer[512] = {0};
 uint32_t USBHost::descriptor_length = 0;
 
+void USBHost::registerDriver(USBDriver *driver) {
+    extern USBDriver *available_drivers;
+    driver->next = available_drivers;
+    available_drivers = driver;
+}
+
+
 // The main user function to cause internal state to update.  Since we do
 // almost everything with DMA and interrupts, the only work to do here is
 // call all the active driver Task() functions.
